@@ -51,11 +51,11 @@ public class ClienteSuport implements Serializable, InterfaceCrud{
         return Dao().getEntities();
     }
     
-    public Cliente getTransportadoraById(Long id){
+    public Cliente getClienteById(Long id){
         return Dao().getEntity(id);
     }
     
-    public List<Cliente> veiculosPorPlaca(String valor){
+    public List<Cliente> clientePorNome(String valor){
         DetachedCriteria criteria = DetachedCriteria.forClass(Cliente.class)
                 .add(Restrictions.ilike("nome", valor, MatchMode.START));
         return Dao().getEntitiesByDetachetCriteria(criteria);

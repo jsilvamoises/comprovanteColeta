@@ -17,44 +17,54 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class CadastroTransportadoraBean implements Serializable{
-    private static final Long serialVersionUID= 1L;
+public class CadastroTransportadoraBean implements Serializable {
+
+    private static final Long serialVersionUID = 1L;
+    
     
     private Transportadora transportadora;
     private TransportadoraSuport suport;
 
     public CadastroTransportadoraBean() {
-      suport = new TransportadoraSuport();
-      criarObjeto();
-    }
-    
-    
-    public void limpar(){
+        suport = new TransportadoraSuport();
         criarObjeto();
     }
-    
-    public void save(){
-        if(suport.save(transportadora)){
-            criarObjeto();
-        }
-    }
-    public void delete(){
-        if(suport.delete(transportadora)){
-            criarObjeto();
-        }
-    }
-    
-    private void criarObjeto(){
-          transportadora = new Transportadora();
-        
+
+    public void limpar() {
+        criarObjeto();
     }
 
-    public Transportadora getMotorista() {
+    public void save() {
+        if (suport.save(transportadora)) {
+            criarObjeto();
+        }
+    }
+
+    public void delete() {
+        if (suport.delete(transportadora)) {
+            criarObjeto();
+        }
+    }
+
+    
+
+    private void criarObjeto() {
+        transportadora = new Transportadora();
+
+    }
+
+  
+
+    
+
+    public Transportadora getTransportadora() {
         return transportadora;
     }
 
-    public void setMotorista(Transportadora transportadora) {
-        this.transportadora = transportadora;
+    public void setTransportadora(Transportadora transportadora) {
+        if (transportadora != null) 
+            this.transportadora = transportadora;
+       
     }
-    
+
 }

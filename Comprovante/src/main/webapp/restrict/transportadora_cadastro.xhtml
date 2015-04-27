@@ -5,47 +5,55 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns="http://www.w3.org/1999/xhtml"
-                    
+
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="conteudo">
         <f:metadata>
-            <f:viewParam name="motorista" value="#{cadastroMotoristaBean.motorista}"/>
+            <f:viewParam name="transportadora" value="#{cadastroTransportadoraBean.transportadora}"/>
         </f:metadata>
         <div id="form" class="content_medio">
             <h:form>
-                <h1>Cadastro de Motorista</h1>
+                <h1>Cadastro de Transportadoras</h1>
                 <p:fieldset class="field-set">
                     <h:panelGrid columns="1"  class="panel-grid">
                         <p:outputLabel value="Transportadora"/>
-                        <p:autoComplete size="50" value="#{cadastroMotoristaBean.motorista.transportadora}" var="transp"
-                                        completeMethod="#{pesquisaTransportadoraBean.pesquisarTransportadoraPorNome}"
-                                        itemLabel="#{transp.nome}" itemValue="#{transp}" forceSelection="true"  scrollHeight="250" />
-                        
-                        <p:outputLabel value="Nome do Motorista"/>
-                        <p:inputText size="50" value="#{cadastroMotoristaBean.motorista.nome}"/>
-                        
+                        <p:inputText value="#{cadastroTransportadoraBean.transportadora.nome}"/>
+
+                        <p:outputLabel value="CNPJ"/>
+                        <p:inputText size="50" value="#{cadastroTransportadoraBean.transportadora.cnpj}"/>
+
+                        <p:outputLabel value="email"/>
+                        <p:inputText size="50" value="#{cadastroTransportadoraBean.transportadora.email}"/>
+
+
+                        <p:outputLabel value="Nome Contato"/>
+                        <p:inputText size="50" value="#{cadastroTransportadoraBean.transportadora.nomeContato}"/>
+
+
+
+
                         <h:panelGrid columns="2">
-                            <p:outputLabel value="RG"/>
-                            <p:outputLabel value="Placa"/>
+                            <p:outputLabel value="Telefone"/>
+                            <p:outputLabel value="Status"/>
+
+                            <p:inputText value="#{cadastroTransportadoraBean.transportadora.telefone}"/>
                             
-                            <p:inputText value="#{cadastroMotoristaBean.motorista.rg}"/>
-                            <p:inputMask mask="aaa-9999" value="#{cadastroMotoristaBean.motorista.placa}"/>
                         </h:panelGrid>
                     </h:panelGrid>
                 </p:fieldset>
-                
+
                 <p:toolbar style="margin-top: 20px!important; padding: 10px!important">
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" style="width: 100px" action="#{cadastroMotoristaBean.save()}" update="@form"/>
-                         <p:commandButton value="Limpar" style="width: 100px" action="#{cadastroMotoristaBean.limpar()}" update="@form"/>
+                        <p:commandButton value="Salvar" style="width: 100px" action="#{cadastroTransportadoraBean.save()}" update="@form"/>
+                        <p:commandButton value="Limpar" style="width: 100px" action="#{cadastroTransportadoraBean.limpar()}" update="@form"/>
                     </f:facet>
-                    
+
                     <f:facet name="right">
                         <p:button value="Pessquisar" style="width: 100px" outcome="/restrict/transportadora_relatorio"/>
-                         
+
                     </f:facet>
-                        
+
                 </p:toolbar>
 
 

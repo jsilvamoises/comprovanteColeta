@@ -17,22 +17,28 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(forClass = Cliente.class)
 public class ClienteConverter implements javax.faces.convert.Converter {
-    private ClienteSuport suport = new ClienteSuport();
-    @Override
+    private final ClienteSuport suport = new ClienteSuport();
+    
+      @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Cliente anoAplicacao = null;
-        
-        if(value!=null){
-            Long id = new Long(value);
-            return suport.getTransportadoraById(id);
+        Cliente pessoa = null;
+
+        if (value != null) {
+            try {
+                Long id = new Long(value);
+                System.out.println("Passou no pessoa converter");
+                pessoa = (Cliente) new ClienteSuport().getClienteById(id);
+            } catch (Exception e) {
+            }
+
         }
-        return anoAplicacao;
+        return pessoa;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if(value!= null){
-            Long id = ((Cliente)value).getId();
+        if (value != null) {
+            Long id = ((Cliente) value).getId();
             return String.valueOf(id);
         }
         return "";

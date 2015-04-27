@@ -21,11 +21,29 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class PesquisaTransportadoraBean implements Serializable {
 
+    public Transportadora getTransportadoraSelecionada() {
+        return transportadoraSelecionada;
+    }
+
+    public void setTransportadoraSelecionada(Transportadora transportadoraSelecionada) {
+        this.transportadoraSelecionada = transportadoraSelecionada;
+    }
+
+    public List<Transportadora> getTransportadoras() {
+        return transportadoras;
+    }
+
+    public void setTransportadoras(List<Transportadora> transportadoras) {
+        this.transportadoras = transportadoras;
+    }
+
     private static final Long serialVersionUID = 1L;
 
     private String campo;
-    
+
     private boolean tamanhoLista;
+
+    private Transportadora transportadoraSelecionada;
 
     private List<Transportadora> transportadoras;
     private TransportadoraSuport suport;
@@ -35,8 +53,20 @@ public class PesquisaTransportadoraBean implements Serializable {
         suport = new TransportadoraSuport();
     }
 
+    public void delete() {
+        if (suport.delete(transportadoraSelecionada)) {
+            transportadoras.clear();
+        }
+    }
+
     public void pesquisarTodos() {
         transportadoras = suport.list();
+    }
+
+    public void pesquisarTransportadoraPorNome() {
+
+        transportadoras = suport.transportadoraPorNome(campo);
+
     }
 
     public List<Transportadora> pesquisarTransportadoraPorNome(String nome) {

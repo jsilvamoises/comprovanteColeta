@@ -14,8 +14,8 @@
                 <h1>Pesquisa</h1>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:inputText value="#{pesquisaMotoristaBean.campo}" placeholder="Nome ou Placa"/>
-                        <p:commandButton icon="icon-lupa" action="#{pesquisaMotoristaBean.pesquisarPorPlaca()}" update="@form"/>
+                        <p:inputText value="#{pesquisaTransportadoraBean.campo}" placeholder="Nome"/>
+                        <p:commandButton icon="icon-lupa" action="#{pesquisaTransportadoraBean.pesquisarTransportadoraPorNome()}" update="@form"/>
                     </f:facet>
                     
                     <f:facet name="right">
@@ -24,38 +24,42 @@
                 </p:toolbar>
 
                 
-                <p:dataTable id="table" value="#{pesquisaMotoristaBean.motoristas}" var="motorista" rows="10" paginator="true" draggableRows="true" reflow="true">
+                <p:dataTable id="table" value="#{pesquisaTransportadoraBean.motoristas}" var="transportadora" rows="10" paginator="true" draggableRows="true" reflow="true">
                     <p:column headerText="Id" style="width: 80px">
-                        <h:outputText value="#{motorista.id}"/>
+                        <h:outputText value="#{transportadora.id}"/>
                     </p:column>
 
                     <p:column headerText="Nome">
-                        <h:outputText value="#{motorista.nome}"/>
+                        <h:outputText value="#{transportadora.nome}"/>
                     </p:column>
 
-                    <p:column headerText="RG">
-                        <h:outputText value="#{motorista.rg}"/>
+                    <p:column headerText="CNPJ">
+                        <h:outputText value="#{transportadora.cnpj}"/>
                     </p:column>
 
-                    <p:column headerText="Placa">
-                        <h:outputText value="#{motorista.placa}"/>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{transportadora.email}"/>
                     </p:column>
 
-                    <p:column headerText="Transportadora">
-                        <h:outputText value="#{motorista.transportadora.nome}"/>
+                    <p:column headerText="Nome Contato">
+                        <h:outputText value="#{transportadora.nomeContato}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Telefone">
+                        <h:outputText value="#{transportadora.telefone}"/>
                     </p:column>
 
                     <p:column headerText="Ação" style="width: 80px" exportable="false">
-                        <p:button icon="icon-editar" outcome="/restrict/motorista_cadastro">
-                            <f:param name="motorista" value="#{motorista.id}"/>
+                        <p:button icon="icon-editar" outcome="/restrict/transportadora_cadastro">
+                            <f:param name="transportadora" value="#{transportadora.id}"/>
                         </p:button>
                         <p:commandButton icon="icon-excluir" oncomplete="PF('confirmacaoExclusao').show();" process="@this" update="@form">
-                            <f:setPropertyActionListener target="#{pesquisaMotoristaBean.motoristaSelecionado}" value="#{motorista}"/>
+                            <f:setPropertyActionListener target="#{pesquisaTransportadoraBean.transportadoraSelecionada}" value="#{transportadora}"/>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-                <p:outputLabel value="Exportar" rendered="#{pesquisaMotoristaBean.motoristas.size()>0?true:false}"/>
-                <p:fieldset rendered="#{pesquisaMotoristaBean.motoristas.size()>0?true:false}" id="exp">
+                <p:outputLabel value="Exportar" rendered="#{pesquisaTransportadoraBean.motoristas.size()>0?true:false}"/>
+                <p:fieldset rendered="#{pesquisaTransportadoraBean.motoristas.size()>0?true:false}" id="exp">
                     <h:commandLink id="excel">
                         <p:graphicImage name="images/icons/32/microsoft-excel.png"/>
                         <p:dataExporter type="xls" target="table" fileName="motoristas" />
@@ -68,10 +72,10 @@
                 </p:fieldset>
                 
                 
-                <p:confirmDialog  global="true" header="Exclusão" message="Realmente deseja excluir? #{pesquisaMotoristaBean.motoristaSelecionado}" widgetVar="confirmacaoExclusao">
+                <p:confirmDialog  global="true" header="Exclusão" message="Realmente deseja excluir? #{pesquisaTransportadoraBean.transportadoraSelecionada}" widgetVar="confirmacaoExclusao">
                     <p:button  value="Não" onclick="PF('confirmacaoExclusao').hide();
                             return false;" />
-                        <p:commandButton process="@this" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" action="#{pesquisaMotoristaBean.delete()}" update="table"/>
+                        <p:commandButton process="@this" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" action="#{pesquisaTransportadoraBean.delete()}" update="table"/>
                             
 
                 </p:confirmDialog>

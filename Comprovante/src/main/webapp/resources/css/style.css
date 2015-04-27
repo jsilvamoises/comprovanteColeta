@@ -2,7 +2,9 @@
 @import "../../resources/css/cssLayout.css";
 @import "../../resources/css/default.css";
 div{padding: 0!important}
-#topo{padding: 0!important; margin: 0!important;border: none!important overflow: hidden!important}
+#topo{padding: 0!important; margin: 0!important;border: none!important overflow: hidden!important;position: static!important}
+#primeiro-texto{position: fixed!important; top: 50px!important; left: 100px!important}
+#segundo-texto{position: fixed!important; top: 80px!important; left: 100px!important}
 .content_medio{margin: 0 auto!important; width: 600px!important}
 .content-full{margin: 20px!important}
 .panel-grid{width: 100%}
