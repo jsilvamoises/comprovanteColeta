@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pp="http://primefaces.org/ui/extensions"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="conteudo">
+        <h:form id="form">
+            <div class="content-full">
+                <h1>Pesquisa</h1>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:inputText value="#{pesquisaMotoristaBean.campo}" placeholder="Nome ou Placa"/>
+                        <p:commandButton icon="icon-lupa" action="#{pesquisaMotoristaBean.pesquisarPorPlaca()}" update="@form"/>
+                    </f:facet>
+                    
+                    <f:facet name="right">
+                        <p:button value="Cadastrar" icon="icon-plus-2" outcome="/restrict/motorista_cadastro"/>
+                    </f:facet>
+                </p:toolbar>
+
+                
+                <p:dataTable id="table" value="#{pesquisaMotoristaBean.motoristas}" var="motorista" rows="10" paginator="true" draggableRows="true" reflow="true">
+                    <p:column headerText="Id" style="width: 80px">
+                        <h:outputText value="#{motorista.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{motorista.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="RG">
+                        <h:outputText value="#{motorista.rg}"/>
+                    </p:column>
+
+                    <p:column headerText="Placa">
+                        <h:outputText value="#{motorista.placa}"/>
+                    </p:column>
+
+                    <p:column headerText="Transportadora">
+                        <h:outputText value="#{motorista.transportadora.nome}"/>
+                    </p:column>
+
+                    <p:column headerText="Ação" style="width: 80px" exportable="false">
+                        <p:button icon="icon-editar" outcome="/restrict/motorista_cadastro">
+                            <f:param name="motorista" value="#{motorista.id}"/>
+                        </p:button>
+                        <p:commandButton icon="icon-excluir" oncomplete="PF('confirmacaoExclusao').show();" process="@this" update="@form">
+                            <f:setPropertyActionListener target="#{pesquisaMotoristaBean.motoristaSelecionado}" value="#{motorista}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+                <p:outputLabel value="Exportar" rendered="#{pesquisaMotoristaBean.motoristas.size()>0?true:false}"/>
+                <p:fieldset rendered="#{pesquisaMotoristaBean.motoristas.size()>0?true:false}" id="exp">
+                    <h:commandLink id="excel">
+                        <p:graphicImage name="images/icons/32/microsoft-excel.png"/>
+                        <p:dataExporter type="xls" target="table" fileName="motoristas" />
+                    </h:commandLink>
+
+                    <h:commandLink id="xml">
+                        <p:graphicImage name="images/icons/32/pdf.png"/>
+                        <p:dataExporter type="pdf" target="table" fileName="motoristas" />
+                    </h:commandLink>
+                </p:fieldset>
+                
+                
+                <p:confirmDialog  global="true" header="Exclusão" message="Realmente deseja excluir? #{pesquisaMotoristaBean.motoristaSelecionado}" widgetVar="confirmacaoExclusao">
+                    <p:button  value="Não" onclick="PF('confirmacaoExclusao').hide();
+                            return false;" />
+                        <p:commandButton process="@this" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" action="#{pesquisaMotoristaBean.delete()}" update="table"/>
+                            
+
+                </p:confirmDialog>
+
+
+
+
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form style="overflow: hidden">
+
+        <p:button icon="ui-icon-home" style="width: 100%" outcome="/index.xhtml"/>
+        <p:menu toggleable="true" style="width: 100%">
+            
+            <p:submenu label="Motorista">
+                <p:menuitem value="Cadastro"   icon="icon-plus-2" outcome="/restrict/motorista_cadastro"  />
+                <p:menuitem value="Relatorio"   icon="icon-report-2" outcome="/restrict/motorista_relatorio"/>
+            </p:submenu>
+            <p:submenu label="Transportadora">
+               <p:menuitem value="Cadastro"   icon="icon-plus-2" />
+                <p:menuitem value="Relatorio"  icon="icon-report-2"/>
+            </p:submenu>
+            
+            <p:submenu label="Cliente">
+               <p:menuitem value="Cadastro"   icon="icon-plus-2" />
+                <p:menuitem value="Relatorio"  icon="icon-report-2"/>
+            </p:submenu>
+            
+            <p:submenu label="Embarque">
+               <p:menuitem value="Novo"   icon="icon-plus-2" />
+                <p:menuitem value="Relatorio"   icon="icon-report-2"/>
+            </p:submenu>
+            
+            <p:submenu label="Pesquisar">
+                <p:menuitem value="Google" target="External" url="https://www.google.com.br" icon="icon-google"/>
+                <p:menuitem value="Bing" target="External" url="http://www.bing.com/?setlang=pt-BR"  icon="icon-bing"/>
+            </p:submenu>
+        </p:menu>
+
+
+
+
+    </h:form>
+
+</ui:composition>

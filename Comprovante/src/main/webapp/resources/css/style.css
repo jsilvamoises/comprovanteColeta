@@ -1,0 +1,21 @@
+@import "../../resources/css/icon.css";
+@import "../../resources/css/cssLayout.css";
+@import "../../resources/css/default.css";
+div{padding: 0!important}
+#topo{padding: 0!important; margin: 0!important;border: none!important overflow: hidden!important}
+.content_medio{margin: 0 auto!important; width: 600px!important}
+.content-full{margin: 20px!important}
+.panel-grid{width: 100%}
+
+.field-set{padding: 10px!important; }
+input[type="text"]{
+    color: red!important;
+    font-weight: bold!important;
+    text-transform: uppercase!important;
+    background-color: lightgoldenrodyellow!important;
+    font-size: 14px!important;
+    height: 30px;
+}
+h1{color: darkblue!important;font-size: 20px!important}
+label{text-transform: uppercase!important; margin-left: 5px!important; }
+

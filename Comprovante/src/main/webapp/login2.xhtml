@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+    </h:head>
+    <h:body>
+        <div id="home2">
+            <p:graphicImage library="images" name="moto-ducati.jpg" style="opacity: 0.2; height: 890px; width: 100%"/>
+            </div>
+        <div id="container" style="position: absolute; top:  10% ; left: 45%; clear: both;opacity: 1">
+
+
+            <div id="cracha" style="background-color: white">
+                <div id="furo"></div>
+                <div id="foto-chacha">
+                    <h:graphicImage library="images" name="logo dacMotos1.png" height="100" width="200" />
+                </div>
+                <h:form>
+                    <h:panelGrid columns="1" style="margin-left: 10px; margin-top: 15px">
+                        <h:outputText value="Usuário" style="color: #ff7e27; font-weight: bolder" />
+                        <p:inputText/>
+                        <h:outputText value="Senha" style="color: #ff7e27; font-weight: bolder" />
+                        
+                        <h:panelGroup>
+                            <p:inputText style="width: 49%"/>
+                             <p:commandButton value="Ir" style="width: 38%; margin-left: 10px"/>
+                        </h:panelGroup>
+                        
+                        <p:separator style="margin-top: 10px"/>
+                       
+
+                    </h:panelGrid>
+                </h:form>
+
+                <h:outputText id="texto-inferior-cracha" value="CIÊNCIA DA COMPUTAÇÃO - UNIP 2015"/>
+            </div>
+
+        </div>
+            
+    </h:body>
+</html>
+
