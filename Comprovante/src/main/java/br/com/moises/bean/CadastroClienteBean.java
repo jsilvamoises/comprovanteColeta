@@ -49,13 +49,15 @@ public class CadastroClienteBean implements Serializable{
         
     }
 
-    public Cliente getMotorista() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setMotorista(Cliente cliente) {
+    public void setCliente(Cliente cliente) {
         if(cliente!=null)
         this.cliente = cliente;
     }
+
+   
     
 }

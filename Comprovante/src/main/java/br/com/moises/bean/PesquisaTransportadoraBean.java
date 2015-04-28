@@ -66,6 +66,7 @@ public class PesquisaTransportadoraBean implements Serializable {
     public void pesquisarTransportadoraPorNome() {
 
         transportadoras = suport.transportadoraPorNome(campo);
+        campo ="";
 
     }
 

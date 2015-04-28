@@ -14,11 +14,13 @@
     </h:head>
 
     <h:body>
-       
+        
         <p:layout fullPage="true"> 
+           
             <p:layoutUnit position="north" size="200"  id="topo"  >
                
                 <div id="topo" >
+                   
                      <p:graphicImage library="images/banner" name="banner-for-utl.png" style="width: 100%;height: 100%"/>
                      <h1 id="primeiro-texto">Sistema de controle de Saída de Notas Fiscais </h1>
                      
@@ -31,14 +33,15 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="250" header="MENU" resizable="false" closable="false" collapsible="true" style="text-align: center!important;overflow: no-display!important">
-    
+               
                 <ui:include src="../template/menu.xhtml"/>
             </p:layoutUnit>
 
 
 
             <p:layoutUnit position="center">
-                 <p:messages autoUpdate="true"/> 
+                <p:messages autoUpdate="true" closable="true" /> 
+                 <ui:include src="../../restrict/template/ajaxStatus.xhtml"/>
                 <ui:insert name="conteudo">
                     
                     <div id="content_medio">

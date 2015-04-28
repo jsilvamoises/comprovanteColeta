@@ -8,42 +8,42 @@ package br.com.moises.suport;
 import br.com.moises.dao.Dao;
 import br.com.moises.interfaces.InterfaceCrud;
 import br.com.moises.interfaces.InterfaceDao;
-import br.com.moises.model.Cliente;
+import br.com.moises.model.Embarque;
+import br.com.moises.model.ItensEmbarque;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author MOISES
  */
-public class ClienteSuport implements Serializable, InterfaceCrud{
+public class ItensEmbarqueSuport implements Serializable, InterfaceCrud{
     
-    private InterfaceDao<Cliente> Dao() {
-        InterfaceDao<Cliente> dao = new Dao<>(Cliente.class);
+    private InterfaceDao<ItensEmbarque> Dao() {
+        InterfaceDao<ItensEmbarque> dao = new Dao<>(ItensEmbarque.class);
         return dao;
     }
 
     @Override
     public boolean save(Object o) {
-        return Dao().save((Cliente) o);
+        return Dao().save((ItensEmbarque) o);
     }
 
     @Override
     public boolean saveOrUpdate(Object o) {
-        return Dao().saveOrUpdate((Cliente) o);
+        return Dao().saveOrUpdate((ItensEmbarque) o);
     }
 
     @Override
     public boolean delete(Object o) {
-        return Dao().remove((Cliente) o);
+        return Dao().remove((ItensEmbarque) o);
     }
 
     @Override
     public boolean merge(Object o) {
-       return Dao().merge((Cliente) o);
+       return Dao().merge((ItensEmbarque) o);
     }
 
     @Override
@@ -51,20 +51,20 @@ public class ClienteSuport implements Serializable, InterfaceCrud{
         return Dao().getEntities();
     }
     
-    public Cliente getClienteById(Long id){
+    public ItensEmbarque getItensEmbarqueById(Long id){
         return Dao().getEntity(id);
     }
     
-    public List<Cliente> clientePorNome(String valor){
-        DetachedCriteria criteria = DetachedCriteria.forClass(Cliente.class)
-                .add(Restrictions.or(Restrictions.ilike("nome", valor, MatchMode.START),Restrictions.ilike("documento", valor, MatchMode.START)));
+    public List<ItensEmbarque> itensEmbarquePorEmbarque(Embarque embarque){
+        DetachedCriteria criteria = DetachedCriteria.forClass(ItensEmbarque.class)
+                .add(Restrictions.eq("embarque", embarque));
                 
         return Dao().getEntitiesByDetachetCriteria(criteria);
     }
     
-//    public List<Cliente> getPessoasByPlaca(String valor){
+//    public List<ItensEmbarque> getPessoasByPlaca(String valor){
 //        System.out.print(valor+" ->suport");
-//        DetachedCriteria criteria = DetachedCriteria.forClass(Cliente.class)
+//        DetachedCriteria criteria = DetachedCriteria.forClass(ItensEmbarque.class)
 //                .add(Restrictions.or(Restrictions.ilike("nome", valor, MatchMode.START), Restrictions.ilike("placa", valor, MatchMode.START)));
 //        return Dao().getEntitiesByDetachetCriteria(criteria);
 //    }

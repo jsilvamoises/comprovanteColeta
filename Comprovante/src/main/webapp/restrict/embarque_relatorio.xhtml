@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+             <f:event listener="#{embarqueBean.mostrarEmbarqueEmAberto()}" type="preRenderView"/>
+        </f:metadata>
+        <div class="content-full">
+            <h:form>
+                Pesquisa
+                <p:toolbar>
+                    <f:facet name="left" >
+
+
+                        <h:panelGrid columns="3" style="margin-top: 15px!important">
+
+                            <p:outputLabel value="Número Embarque" for="numero-embarque" class="label"/>
+                            <p:outputLabel value="Data Inicial" for="data-inicial" class="label"/>
+                            <p:outputLabel value="Data Final" for="data-final" class="label"/>
+
+                            <p:inputText id="numero-embarque" placeholder="Número do Embarque"/>
+                            <p:calendar id="data-inicial" placeholder="Data Inicial"/>
+                            <p:calendar id="data-final" placeholder="Data Final"/>
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="2" style="width: 140px!important">
+                            <p:outputLabel value="Transportadora" for="transportadora" class="label"/>
+                            <p:outputLabel value="Status" for="status" class="label"/>
+
+                            <p:selectOneMenu id="transportadora"  style="width: 450px!important">
+                                <f:selectItem itemLabel="Para pesquisar de uma transportadora expecífica selecione!!"/>
+                            </p:selectOneMenu>
+
+                            <p:selectOneMenu id="status" style="width: 120px!important" >
+                                <f:selectItem itemLabel="Selecione!!"/>
+                                <f:selectItems value="#{statusEmbarqueBean.status}" var="status" itemLabel="#{status}" itemValue="#{status}"/>
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                    </f:facet>
+                </p:toolbar>
+
+
+                <!--DATA TABLE-->
+
+                <p:dataTable value="#{embarqueBean.embarques}" var="embarque" rowStyleClass="#{embarque.status}">
+                    <p:column headerText="Número">
+                        <p:outputLabel value="#{embarque.id}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Data Criação">
+                        <p:outputLabel value="#{embarque.dataCriacao}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Data de Embarque">
+                        <p:outputLabel value="#{embarque.dataEmbarque}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Usuario">
+                        <p:outputLabel value="#{embarque.nomeUsuario}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Transportadora">
+                        <p:outputLabel value="#{embarque.transportadora.nome}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Status">
+                        <p:outputLabel value="#{embarque.status}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

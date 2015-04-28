@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="conteudo">
+        <f:metadata>
+            <f:event listener="#{embarqueBean.listarTodasTransportadoras()}" type="preRenderView"/>
+            <f:event listener="#{pesquisaClienteBean.pesquisarTodos()}" type="preRenderView"/>
+            <f:event listener="#{embarqueBean.mostrarEmbarqueEmAberto()}" type="preRenderView"/>
+            <f:viewParam name="item" value="#{embarqueBean.item}"/>
+            <f:viewParam name="embarque" value="#{embarqueBean.embarque}"/>
+        </f:metadata>
+
+
+
+        
+
+
+
+            <div id="conteudo-embarque">
+                <h:form id="form">
+                   
+                    <div>
+                        <ui:include src="embarque/topo_embarque.xhtml"/>
+                    </div>
+                    <div id="esquerda-embarque">
+                        <ui:include src="embarque/esquerda_embarque.xhtml"/>
+                    </div>
+                    <div id="direita-embarque">                        
+                        <ui:include src="embarque/direita_embarque.xhtml"/>                        
+                    </div>
+                </h:form>
+            </div>
+       
+    </ui:define>
+
+</ui:composition>

@@ -29,7 +29,7 @@ public class PesquisaClienteBean  implements Serializable{
     private List<Cliente> clientes;
     private ClienteSuport suport;
     
-    private Cliente motoristaSelecionado;
+    private Cliente clienteSelecionado;
 
     public PesquisaClienteBean() {
         clientes = new ArrayList<>();
@@ -38,7 +38,7 @@ public class PesquisaClienteBean  implements Serializable{
     
     
     public void delete(){
-        if(suport.delete(motoristaSelecionado)){
+        if(suport.delete(clienteSelecionado)){
             pesquisarTodos();
         }
     }
@@ -46,16 +46,17 @@ public class PesquisaClienteBean  implements Serializable{
       clientes =  suport.list();
     }
     
-    public void pesquisarPorNome(){
+    public void pesquisarPorNomeCNPJ(){
       clientes =  suport.clientePorNome(campo);
+      campo="";
         System.out.println("Lista Tamanho "+clientes.size()+campo);
     }
 
-    public List<Cliente> getMotoristas() {
+    public List<Cliente> getClientes() {
         return clientes;
     }
 
-    public void setMotoristas(List<Cliente> clientes) {
+    public void setClientes(List<Cliente> clientes) {
         
         this.clientes = clientes;
     }
@@ -81,12 +82,12 @@ public class PesquisaClienteBean  implements Serializable{
         return tamanhoLista;
     }
 
-    public Cliente getMotoristaSelecionado() {
-        return motoristaSelecionado;
+    public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
     }
 
-    public void setMotoristaSelecionado(Cliente motoristaSelecionado) {
-        this.motoristaSelecionado = motoristaSelecionado;
+    public void setClienteSelecionado(Cliente clienteSelecionado) {
+        this.clienteSelecionado = clienteSelecionado;
     }
     
     

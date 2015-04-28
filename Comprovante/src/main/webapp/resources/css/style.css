@@ -1,15 +1,23 @@
 @import "../../resources/css/icon.css";
 @import "../../resources/css/cssLayout.css";
 @import "../../resources/css/default.css";
-div{padding: 0!important}
+@import "../../resources/css/row.css";
+div{padding: 0!important; font-size: 12px!important}
 #topo{padding: 0!important; margin: 0!important;border: none!important overflow: hidden!important;position: static!important}
 #primeiro-texto{position: fixed!important; top: 50px!important; left: 100px!important}
 #segundo-texto{position: fixed!important; top: 80px!important; left: 100px!important}
+#conteudo-embarque{ margin: 5px 50px !important}
+#esquerda-embarque{float: left!important; width: 70%}
+#direita-embarque{float: right!important; width: 30%}
+.button-icon{width: 24px!important;height: 24px!important}
+.button-icon-label{height: 24px!important; text-align: justify!important}
 .content_medio{margin: 0 auto!important; width: 600px!important}
 .content-full{margin: 20px!important}
 .panel-grid{width: 100%}
-
+.label{color: darkblue!important; font-weight: bold!important}
 .field-set{padding: 10px!important; }
+
+
 input[type="text"]{
     color: red!important;
     font-weight: bold!important;

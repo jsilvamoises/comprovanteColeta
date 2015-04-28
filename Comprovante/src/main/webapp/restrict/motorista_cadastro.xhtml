@@ -20,7 +20,8 @@
                         <p:outputLabel value="Transportadora"/>
                         <p:autoComplete size="50" value="#{cadastroMotoristaBean.motorista.transportadora}" var="transp"
                                         completeMethod="#{pesquisaTransportadoraBean.pesquisarTransportadoraPorNome}"
-                                        itemLabel="#{transp.nome}" itemValue="#{transp}" forceSelection="true"  scrollHeight="250" />
+                                        itemLabel="#{transp.nome}" itemValue="#{transp}" forceSelection="true"  scrollHeight="250"
+                                        dropdown="true" emptyMessage="Digite as iniciais da transportadora no campo" placeholder="Digite as iniciais do nome"/>
                         
                         <p:outputLabel value="Nome do Motorista"/>
                         <p:inputText size="50" value="#{cadastroMotoristaBean.motorista.nome}"/>
@@ -42,7 +43,7 @@
                     </f:facet>
                     
                     <f:facet name="right">
-                        <p:button value="Pessquisar" style="width: 100px" outcome="/restrict/transportadora_relatorio"/>
+                        <p:button value="Pessquisar" style="width: 100px" outcome="/restrict/motorista_relatorio"/>
                          
                     </f:facet>
                         

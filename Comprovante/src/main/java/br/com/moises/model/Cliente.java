@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -31,6 +32,7 @@ public class Cliente implements Serializable {
     @Column(name = "cli_id")
     private Long id;
     
+    
     @Column(name = "cli_nome")
     private String nome;
     
@@ -43,6 +45,9 @@ public class Cliente implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "cli_tipo_cliente")
     private TipoCliente tipoCliente;
+    
+    @Transient
+    private String clienteCnpjNome;
 
     public Long getId() {
         return id;
@@ -109,6 +114,16 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+
+    public String getClienteCnpjNome() {
+        clienteCnpjNome = nome.concat(" - ").concat(documento);
+        return clienteCnpjNome;
+    }
+
+    public void setClienteCnpjNome(String clienteCnpjNome) {
+        
+        this.clienteCnpjNome = clienteCnpjNome;
     }
     
     

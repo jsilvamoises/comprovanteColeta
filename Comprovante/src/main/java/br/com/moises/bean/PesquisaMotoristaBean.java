@@ -48,6 +48,7 @@ public class PesquisaMotoristaBean  implements Serializable{
     
     public void pesquisarPorPlaca(){
       motoristas =  suport.getPessoasByPlaca(campo);
+      campo ="";
         System.out.println("Lista Tamanho "+motoristas.size()+campo);
     }
 

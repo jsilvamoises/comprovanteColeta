@@ -11,67 +11,67 @@
     <ui:define name="conteudo">
         <h:form id="form">
             <div class="content-full">
-                <h1>Pesquisa Motoristas</h1>
+                <h1>Pesquisa Clientes</h1>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:inputText value="#{pesquisaMotoristaBean.campo}" placeholder="Nome ou Placa"/>
-                        <p:commandButton icon="icon-lupa" action="#{pesquisaMotoristaBean.pesquisarPorPlaca()}" update="@form"/>
+                        <p:inputText value="#{pesquisaClienteBean.campo}" placeholder="Nome ou CNPJ"/>
+                        <p:commandButton icon="icon-lupa" action="#{pesquisaClienteBean.pesquisarPorNomeCNPJ()}" update="@form"/>
                     </f:facet>
                     
                     <f:facet name="right">
-                        <p:button value="Cadastrar" icon="icon-plus-2" outcome="/restrict/motorista_cadastro"/>
+                        <p:button value="Cadastrar" icon="icon-plus-2" outcome="/restrict/cliente_cadastro"/>
                     </f:facet>
                 </p:toolbar>
 
                 
-                <p:dataTable id="table" value="#{pesquisaMotoristaBean.motoristas}" var="motorista" rows="10" paginator="true" draggableRows="true" reflow="true">
+                <p:dataTable id="table" value="#{pesquisaClienteBean.clientes}" var="cliente" rows="10" paginator="true" draggableRows="true" reflow="true">
                     <p:column headerText="Id" style="width: 80px">
-                        <h:outputText value="#{motorista.id}"/>
+                        <h:outputText value="#{cliente.id}"/>
+                    </p:column>
+
+                    <p:column headerText="CNPJ">
+                        <h:outputText value="#{cliente.documento}"/>
                     </p:column>
 
                     <p:column headerText="Nome">
-                        <h:outputText value="#{motorista.nome}"/>
+                        <h:outputText value="#{cliente.nome}"/>
                     </p:column>
 
-                    <p:column headerText="RG">
-                        <h:outputText value="#{motorista.rg}"/>
+                    <p:column headerText="Telefone">
+                        <h:outputText value="#{cliente.telefone}"/>
                     </p:column>
 
-                    <p:column headerText="Placa">
-                        <h:outputText value="#{motorista.placa}"/>
-                    </p:column>
-
-                    <p:column headerText="Transportadora">
-                        <h:outputText value="#{motorista.transportadora.nome}"/>
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{cliente.tipoCliente}"/>
                     </p:column>
 
                     <p:column headerText="Ação" style="width: 80px" exportable="false">
-                        <p:button icon="icon-editar" outcome="/restrict/motorista_cadastro">
-                            <f:param name="motorista" value="#{motorista.id}"/>
+                        <p:button icon="icon-editar" outcome="/restrict/cliente_cadastro">
+                            <f:param name="cliente" value="#{cliente.id}"/>
                         </p:button>
                         <p:commandButton icon="icon-excluir" oncomplete="PF('confirmacaoExclusao').show();" process="@this" update="@form">
-                            <f:setPropertyActionListener target="#{pesquisaMotoristaBean.motoristaSelecionado}" value="#{motorista}"/>
+                            <f:setPropertyActionListener target="#{pesquisaClienteBean.clienteSelecionado}" value="#{cliente}"/>
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-                <p:outputLabel value="Exportar" rendered="#{pesquisaMotoristaBean.motoristas.size()>0?true:false}"/>
-                <p:fieldset rendered="#{pesquisaMotoristaBean.motoristas.size()>0?true:false}" id="exp">
+                <p:outputLabel value="Exportar" rendered="#{pesquisaClienteBean.clientes.size()>0?true:false}"/>
+                <p:fieldset rendered="#{pesquisaClienteBean.clientes.size()>0?true:false}" id="exp">
                     <h:commandLink id="excel">
                         <p:graphicImage name="images/icons/32/microsoft-excel.png"/>
-                        <p:dataExporter type="xls" target="table" fileName="motoristas" />
+                        <p:dataExporter type="xls" target="table" fileName="clientes" />
                     </h:commandLink>
 
                     <h:commandLink id="xml">
                         <p:graphicImage name="images/icons/32/pdf.png"/>
-                        <p:dataExporter type="pdf" target="table" fileName="motoristas" />
+                        <p:dataExporter type="pdf" target="table" fileName="clientes" />
                     </h:commandLink>
                 </p:fieldset>
                 
                 
-                <p:confirmDialog  global="true" header="Exclusão" message="Realmente deseja excluir? #{pesquisaMotoristaBean.motoristaSelecionado}" widgetVar="confirmacaoExclusao">
+                <p:confirmDialog  global="true" header="Exclusão" message="Realmente deseja excluir? #{pesquisaClienteBean.clienteSelecionado}" widgetVar="confirmacaoExclusao">
                     <p:button  value="Não" onclick="PF('confirmacaoExclusao').hide();
                             return false;" />
-                        <p:commandButton process="@this" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" action="#{pesquisaMotoristaBean.delete()}" update="table"/>
+                        <p:commandButton process="@this" value="Sim" oncomplete="PF('confirmacaoExclusao').hide()" action="#{pesquisaClienteBean.delete()}" update="table"/>
                             
 
                 </p:confirmDialog>
