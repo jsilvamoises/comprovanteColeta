@@ -12,8 +12,6 @@ import br.com.moises.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 

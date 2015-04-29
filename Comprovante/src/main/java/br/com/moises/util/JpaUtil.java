@@ -5,7 +5,6 @@
  */
 package br.com.moises.util;
 
-import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -25,7 +24,7 @@ public final class JpaUtil {
     public JpaUtil() {
     }
     
-    @Produces
+//    @Produces
     public static EntityManager getEntityManager(){
         if(entityManagerFactory==null){
             entityManagerFactory = Persistence .createEntityManagerFactory(PERSISTENCE_UNIT);

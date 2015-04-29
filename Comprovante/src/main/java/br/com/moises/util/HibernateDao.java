@@ -8,7 +8,6 @@ package br.com.moises.util;
 import br.com.moises.interfaces.InterfaceDao;
 import java.io.Serializable;
 import java.util.List;
-import static javafx.scene.input.KeyCode.T;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 

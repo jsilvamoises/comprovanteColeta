@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0245187-44e4-493c-9990-e9ca3391d245">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EMBARQUE_NUMERO" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[new Long("1")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMAGEM" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Users\\Public\\Pictures\\Sample Pictures\\Jellyfish.jpg"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_embarque.`emb_id` AS tbl_embarque_emb_id,
+     tbl_transportadora.`tra_id` AS tbl_transportadora_tra_id,
+     tbl_transportadora.`tra_nome` AS tbl_transportadora_tra_nome,
+     tbl_itens_embarque.`ite_id` AS tbl_itens_embarque_ite_id,
+     tbl_itens_embarque.`ite_data_inclusao` AS tbl_itens_embarque_ite_data_inclusao,
+     tbl_itens_embarque.`ite_nota_fiscal` AS tbl_itens_embarque_ite_nota_fiscal,
+     tbl_itens_embarque.`ite_quantidade_volume` AS tbl_itens_embarque_ite_quantidade_volume,
+     tbl_itens_embarque.`ite_cliente_id` AS tbl_itens_embarque_ite_cliente_id,
+     tbl_itens_embarque.`ite_embarque_id` AS tbl_itens_embarque_ite_embarque_id,
+     tbl_embarque_A.`emb_nome_motorista` AS tbl_embarque_A_emb_nome_motorista,
+     tbl_embarque_A.`emb_nome_usuario` AS tbl_embarque_A_emb_nome_usuario,
+     tbl_embarque_A.`emb_numero_lacre` AS tbl_embarque_A_emb_numero_lacre,
+     tbl_embarque_A.`emb_observacao` AS tbl_embarque_A_emb_observacao,
+     tbl_embarque_A.`emb_placa_veiculo` AS tbl_embarque_A_emb_placa_veiculo,
+     tbl_embarque_A.`emb_rg_motorista` AS tbl_embarque_A_emb_rg_motorista,
+     tbl_embarque_A.`transportadora` AS tbl_embarque_A_transportadora,
+     tbl_cliente.`cli_id` AS tbl_cliente_cli_id,
+     tbl_cliente.`cli_nome` AS tbl_cliente_cli_nome,
+     tbl_embarque_A.`emb_transportadora_id` AS tbl_embarque_A_emb_transportadora_id,
+     tbl_embarque.`dataEmbarque` AS tbl_embarque_dataEmbarque
+FROM
+     `tbl_transportadora` tbl_transportadora INNER JOIN `tbl_embarque` tbl_embarque ON tbl_transportadora.`tra_id` = tbl_embarque.`emb_transportadora_id`
+     INNER JOIN `tbl_itens_embarque` tbl_itens_embarque ON tbl_embarque.`emb_id` = tbl_itens_embarque.`ite_embarque_id`
+     INNER JOIN `tbl_embarque` tbl_embarque_A ON tbl_itens_embarque.`ite_embarque_id` = tbl_embarque_A.`emb_id`
+     INNER JOIN `tbl_cliente` tbl_cliente ON tbl_itens_embarque.`ite_cliente_id` = tbl_cliente.`cli_id`
+     AND tbl_transportadora.`tra_id` = tbl_embarque_A.`emb_transportadora_id`
+WHERE
+     tbl_embarque.emb_id = $P{EMBARQUE_NUMERO}]]>
+	</queryString>
+	<field name="tbl_embarque_emb_id" class="java.lang.Long"/>
+	<field name="tbl_transportadora_tra_id" class="java.lang.Long"/>
+	<field name="tbl_transportadora_tra_nome" class="java.lang.String"/>
+	<field name="tbl_itens_embarque_ite_id" class="java.lang.Long"/>
+	<field name="tbl_itens_embarque_ite_data_inclusao" class="java.sql.Timestamp"/>
+	<field name="tbl_itens_embarque_ite_nota_fiscal" class="java.lang.String"/>
+	<field name="tbl_itens_embarque_ite_quantidade_volume" class="java.lang.Double"/>
+	<field name="tbl_itens_embarque_ite_cliente_id" class="java.lang.Long"/>
+	<field name="tbl_itens_embarque_ite_embarque_id" class="java.lang.Long"/>
+	<field name="tbl_embarque_A_emb_nome_motorista" class="java.lang.String"/>
+	<field name="tbl_embarque_A_emb_nome_usuario" class="java.lang.String"/>
+	<field name="tbl_embarque_A_emb_numero_lacre" class="java.lang.String"/>
+	<field name="tbl_embarque_A_emb_observacao" class="java.lang.String"/>
+	<field name="tbl_embarque_A_emb_placa_veiculo" class="java.lang.String"/>
+	<field name="tbl_embarque_A_emb_rg_motorista" class="java.lang.String"/>
+	<field name="tbl_embarque_A_transportadora" class="java.lang.Object"/>
+	<field name="tbl_cliente_cli_id" class="java.lang.Long"/>
+	<field name="tbl_cliente_cli_nome" class="java.lang.String"/>
+	<field name="tbl_embarque_A_emb_transportadora_id" class="java.lang.Long"/>
+	<field name="tbl_embarque_dataEmbarque" class="java.sql.Timestamp"/>
+	<group name="GRUPO_CLIENTE">
+		<groupExpression><![CDATA[$F{tbl_cliente_cli_id}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="555" height="20" uuid="63023fcd-69a2-41a8-ab17-e6d16a7f7433"/>
+					<textElement>
+						<font isBold="true" isItalic="true" isUnderline="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["CLIENTE.: "
++$F{tbl_cliente_cli_id}
++" - "
++$F{tbl_cliente_cli_nome}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="0ee9c258-879b-47da-8cd3-09f3f8b5e7b3"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle" onErrorType="Icon">
+				<reportElement x="0" y="0" width="150" height="74" uuid="c71d520e-ced4-4258-9eb5-a960d5382c1e"/>
+				<imageExpression><![CDATA[$P{IMAGEM}.toString()]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="150" y="0" width="405" height="21" uuid="c9ca53c3-25ec-48f3-8e07-61a59bc22fea"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[COMPROVANTE DE COLETA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="34" width="405" height="20" uuid="beb436b9-d15f-4874-bd5e-e6a8f2d6563c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[METALURGICA ASSIS LIMITADA - FONE (11) 4465-8795]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="54" width="405" height="20" uuid="203ec0a6-2ac6-4ed2-a654-a6c1be03af25"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[E-mail.: assis@assis.com.br - Site.: www.assism.com.br]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="336" height="20" backcolor="#CCCCCC" uuid="ad199e1d-25e1-4304-82a8-24015fac646f"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TRANSP.: "+
+$F{tbl_transportadora_tra_id}
++" - "
++$F{tbl_transportadora_tra_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="336" y="0" width="219" height="20" backcolor="#CCCCCC" uuid="1b15e6ff-0ea2-401a-a192-92f13606ef27"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EMBARQUE Nº.: "+
+$F{tbl_embarque_emb_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="7" width="55" height="20" uuid="4654a80d-0ff1-4705-be26-6bfcdfb10d07"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ITEM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="7" width="177" height="20" uuid="9c283b46-ad60-40da-be75-96bf62759fd2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA INCLUSÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="7" width="100" height="20" uuid="15e6e3be-d145-4a48-afd1-befba23a3ef2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA FISCAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="7" width="76" height="20" uuid="3cb9d391-9873-443c-bca6-0c2ac09e4d1e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VOLUMES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="8" width="147" height="19" uuid="6454c654-5117-4220-8b05-8923d930dd59"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA DE EMBARQUE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="110" y="0" width="122" height="20" uuid="1bfe37df-d662-42e6-b20c-5407e9dc8134"/>
+				<textFieldExpression><![CDATA[$F{tbl_itens_embarque_ite_data_inclusao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="0" width="100" height="20" uuid="550520b1-b9ea-45bd-98f4-157db51ad0dd"/>
+				<textFieldExpression><![CDATA["NF.: "+
+$F{tbl_itens_embarque_ite_nota_fiscal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="55" height="20" uuid="5a1967b0-54f9-4a02-84b4-bd11e6749d16"/>
+				<textFieldExpression><![CDATA[$F{tbl_itens_embarque_ite_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="55" y="0" width="55" height="20" uuid="5c20f174-c1cf-4695-b170-ef2b28b7b6ca"/>
+				<text><![CDATA[Inclusão.: ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="477" y="0" width="78" height="20" uuid="11aa9292-c960-4ccd-9013-5ffb8dd68b37"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_dataEmbarque}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="408" y="0" width="69" height="20" uuid="4afc71d4-77d4-43a0-80ee-b0e3cff7e629"/>
+				<text><![CDATA[Embarcado.: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="0" width="27" height="20" uuid="3ca53f80-c94c-4bbc-804e-f9fb554ce37a"/>
+				<text><![CDATA[Vol.:]]></text>
+			</staticText>
+			<textField pattern="###0">
+				<reportElement x="359" y="0" width="49" height="20" uuid="920d2364-188c-4c34-b8ec-7901b6aa7c82"/>
+				<textFieldExpression><![CDATA[$F{tbl_itens_embarque_ite_quantidade_volume}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="153" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="24" width="286" height="103" uuid="0998cd48-9b3d-40d6-9d23-25334e73fe10"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement x="296" y="24" width="259" height="103" uuid="b9ec1e02-9d50-475a-940e-c2894702c7a7"/>
+			</rectangle>
+			<textField>
+				<reportElement x="310" y="44" width="234" height="78" uuid="e80708c2-7853-4a7f-a183-73b9173a6735"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_A_emb_observacao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="24" y="24" width="55" height="20" uuid="1b1bdd5a-4748-4692-85c9-22c3f2900ec3"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Motorista.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="24" width="202" height="20" uuid="85023e48-7b87-4e81-8c11-2980407bcfd3"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_A_emb_nome_motorista}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="296" y="4" width="259" height="20" uuid="9e4cb09c-780f-402e-873b-ae4d7de23b5a"/>
+				<text><![CDATA[Observações]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="4" width="286" height="20" uuid="723c756c-9d7c-42e8-bc21-d40dd925f7dd"/>
+				<text><![CDATA[Dados do Motorista]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="44" width="55" height="20" uuid="9dfc52a7-7451-42dd-a5cd-b9abcc047dc2"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[RG.: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="64" width="55" height="20" uuid="ad36cdfd-ac4d-4261-88dc-95c05d4a040c"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Placa.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="44" width="202" height="20" uuid="a7e183f9-04f4-4434-b56c-550032c4382e"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_A_emb_rg_motorista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="64" width="202" height="20" uuid="6f10bba8-70ca-41ef-b4fa-116b60104e12"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_A_emb_placa_veiculo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="41" y="108" width="207" height="1" uuid="4897fff2-480a-468e-a53d-f7417306eb92"/>
+			</line>
+			<staticText>
+				<reportElement x="41" y="109" width="207" height="13" uuid="0c721290-8315-4aec-b26b-ccb5580abfc4"/>
+				<text><![CDATA[Assinatura]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

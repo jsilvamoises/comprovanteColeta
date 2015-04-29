@@ -10,12 +10,18 @@ import br.com.moises.enums.StatusEmbarque;
 import br.com.moises.interfaces.InterfaceCrud;
 import br.com.moises.interfaces.InterfaceDao;
 import br.com.moises.model.Embarque;
+
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+
 
 /**
  *
@@ -82,12 +88,11 @@ public class EmbarqueSuport implements Serializable, InterfaceCrud {
             return embarques;
         } catch (Exception e) {
             return null;
-        }finally{
+        } finally {
             Dao().commit(s);
-            
+
         }
 
-        
     }
 
     public List<Embarque> getEmbarquesEmAberto() {
@@ -98,4 +103,6 @@ public class EmbarqueSuport implements Serializable, InterfaceCrud {
                         ));
         return Dao().getEntitiesByDetachetCriteria(criteria);
     }
+
+    
 }

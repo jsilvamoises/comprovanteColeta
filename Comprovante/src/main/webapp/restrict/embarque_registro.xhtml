@@ -12,6 +12,8 @@
             <f:event listener="#{embarqueBean.listarTodasTransportadoras()}" type="preRenderView"/>
             <f:event listener="#{pesquisaClienteBean.pesquisarTodos()}" type="preRenderView"/>
             <f:event listener="#{embarqueBean.mostrarEmbarqueEmAberto()}" type="preRenderView"/>
+            
+           
             <f:viewParam name="item" value="#{embarqueBean.item}"/>
             <f:viewParam name="embarque" value="#{embarqueBean.embarque}"/>
         </f:metadata>

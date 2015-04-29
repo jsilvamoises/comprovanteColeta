@@ -6,19 +6,27 @@
 package br.com.moises.bean;
 
 import br.com.moises.enums.StatusEmbarque;
-import br.com.moises.model.Cliente;
 import br.com.moises.model.Embarque;
 import br.com.moises.model.ItensEmbarque;
 import br.com.moises.model.Transportadora;
 import br.com.moises.suport.EmbarqueSuport;
 import br.com.moises.suport.ItensEmbarqueSuport;
 import br.com.moises.suport.TransportadoraSuport;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.servlet.ServletContext;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -34,11 +42,13 @@ public class EmbarqueBean implements Serializable {
     private ItensEmbarque item;
     private final EmbarqueSuport embarqueSuport;
     private final ItensEmbarqueSuport itensSuport;
-    
+
     private ItensEmbarque itemSelecionado;
     private Embarque embarqueSelecionado;
 
     private List<Transportadora> transportadoras;
+    @Inject
+    private HttpServletResponse response;
 
     public EmbarqueBean() {
         embarque = new Embarque();
@@ -49,14 +59,24 @@ public class EmbarqueBean implements Serializable {
         item = new ItensEmbarque();
         transportadoras = new ArrayList<>();
     }
-    
-    
-    public void embarcar(){
+
+    public void embarcar() throws IOException, SQLException {
         embarque.setStatus(StatusEmbarque.EMBARCADO);
+        embarque.setDataEmbarque(Calendar.getInstance().getTime());
+        Long id = embarque.getId();
         embarqueSuport.save(embarque);
+        gerarRelatorio();
         novoEmbarque();
     }
-    public void embarqueByQuery(){
+
+    public void gerarRelatorio() throws SQLException {
+        InputStream inputStream = 
+                  getClass().getClassLoader().getResourceAsStream("/report/comprovante.jasper");
+        System.out.println(inputStream);
+
+    }
+
+    public void embarqueByQuery() {
         embarques = embarqueSuport.getEmbarquesAbertoByQuery();
     }
 
@@ -82,8 +102,8 @@ public class EmbarqueBean implements Serializable {
         embarque.setStatus(StatusEmbarque.CANCELADO);
 
     }
-    
-    public void incluirItensNoEmbarque(){
+
+    public void incluirItensNoEmbarque() {
         embarque = embarqueSelecionado;
         itens = itensSuport.itensEmbarquePorEmbarque(embarque);
         embarques = embarqueSuport.getEmbarquesEmAberto();
@@ -91,8 +111,8 @@ public class EmbarqueBean implements Serializable {
 
     //ITENS DO EMBARQUE
     public void salvarItemDoEmbarque() {
-       // Cliente cliente = item.getCliente();
-        if(embarque.getStatus()==StatusEmbarque.VAZIO){
+        // Cliente cliente = item.getCliente();
+        if (embarque.getStatus() == StatusEmbarque.VAZIO) {
             embarque.setStatus(StatusEmbarque.CARREGANDO);
             embarqueSuport.save(embarque);
         }
@@ -100,32 +120,29 @@ public class EmbarqueBean implements Serializable {
         item.setEmbarque(embarque);
         itensSuport.saveOrUpdate(item);
        // embarque.getItens().add(item);
-       // embarqueSuport.saveOrUpdate(embarque);
+        // embarqueSuport.saveOrUpdate(embarque);
 
       //  embarques = embarqueSuport.list();
-
-       // embarqueSuport.merge(embarque);
+        // embarqueSuport.merge(embarque);
         item = new ItensEmbarque();
-     //   item.setCliente(cliente);
+        //   item.setCliente(cliente);
         itens = itensSuport.itensEmbarquePorEmbarque(embarque);
 
-       
-
     }
-    
-    public void editar(){
-        item  = itemSelecionado;
+
+    public void editar() {
+        item = itemSelecionado;
     }
 
     public void salvarItenEditado() {
-       // Cliente cliente = item.getCliente();
+        // Cliente cliente = item.getCliente();
         itensSuport.merge(item);
         item = new ItensEmbarque();
         itens = itensSuport.itensEmbarquePorEmbarque(embarque);
-       // item.setCliente(cliente);
+        // item.setCliente(cliente);
     }
-    
-    public void mostrarEmbarqueEmAberto(){
+
+    public void mostrarEmbarqueEmAberto() {
         embarques = embarqueSuport.getEmbarquesEmAberto();
     }
 
