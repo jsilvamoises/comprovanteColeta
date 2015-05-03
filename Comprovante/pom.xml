@@ -15,16 +15,21 @@
     </properties>
     
     <dependencies>
+        <dependency>  
+    <groupId>javax.persistence</groupId>  
+    <artifactId>persistence-api</artifactId>  
+    <version>1.0</version>  
+    <scope>provided</scope>  
+</dependency> 
+
+<dependency>
+	<groupId>jaxen</groupId>
+	<artifactId>jaxen</artifactId>
+	<version>1.1.6</version>
+</dependency>
+
         
-        
-        
-        <!--JASPER REPORT-->
-        <dependency>
-            <groupId>jasperreports</groupId> 
-            <artifactId>jasperreports</artifactId>
-            <version>3.5.3</version>
-        </dependency>
-        <!--JAVAX ENTERPRISE-->
+   
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
@@ -119,6 +124,13 @@
             <artifactId>poi</artifactId>
             <version>3.12-beta1</version>
         </dependency>
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.0.4</version>
+        </dependency>
+
 
 
 
@@ -154,6 +166,7 @@
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
+                    <showDeprecation>false</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>

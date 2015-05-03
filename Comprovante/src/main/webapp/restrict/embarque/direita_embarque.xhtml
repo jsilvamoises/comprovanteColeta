@@ -35,8 +35,8 @@
                              update=":form:tbl-embarques :form:tbl-itens :form:direita-embarque"
                              rendered="#{embarqueBean.item.id>0?false:true}" accesskey="enter"/>
             <p:commandButton value="Salvar Editado" style="width: 100%" action="#{embarqueBean.salvarItenEditado()}" 
-                             update=":form:tbl-embarques :form:tbl-itens :form:direita-embarque"
-                             rendered="#{embarqueBean.item.id>0?true:false}" accesskey="enter"/>
+                             update="@form"
+                             rendered="#{embarqueBean.item.id>0?true:false}" accesskey="enter" />
 
         </p:fieldset>
         Dados do Motorista
@@ -66,7 +66,9 @@
             </h:panelGrid>
             
             <p:commandButton value="Embarcar" style="width: 100%" disabled="#{embarqueBean.itens.size()>0?false:true}" 
-                             action="#{embarqueBean.embarcar()}" process="@this" update="@form" partialSubmit="true"/>
+                             action="#{embarqueBean.embarcar()}"   update="@form" process="@this"  >
+              
+            </p:commandButton>
         </p:fieldset>
         <!--COMANDOS-->
 <!--        Ação

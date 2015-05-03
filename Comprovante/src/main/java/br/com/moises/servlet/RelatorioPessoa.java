@@ -6,8 +6,14 @@
 package br.com.moises.servlet;
 
 import br.com.moises.util.connection.ConnMariaDB;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.IOException;
 import static java.lang.System.out;
 import java.sql.Connection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,7 +75,39 @@ public class RelatorioPessoa extends HttpServlet{
     }
 
     private void mostrarRelatorio(byte[] arquivo, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       /**
+     * A simple Hello World Servlet.
+     * @see HttpServlet#doGet(
+     *      HttpServletRequest request, HttpServletResponse response)
+     */
+   
+        
+        response.setContentType("application/pdf");
+        try {
+            // step 1
+            Document document = new Document();
+            try {
+                // step 2
+                PdfWriter.getInstance(document, response.getOutputStream());
+            } catch (IOException ex) {
+                Logger.getLogger(RelatorioPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // step 3
+            document.open();
+            // step 4
+            document.add(new Paragraph("Hello World"));
+            document.add(new Paragraph(new Date().toString()));
+            // step 5
+            
+            document.close();
+        } catch (DocumentException de) {
+            try {
+                throw new IOException(de.getMessage());
+            } catch (IOException ex) {
+                Logger.getLogger(RelatorioPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
     }
     
-}
+

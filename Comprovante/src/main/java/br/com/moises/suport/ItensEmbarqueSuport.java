@@ -12,6 +12,7 @@ import br.com.moises.model.Embarque;
 import br.com.moises.model.ItensEmbarque;
 import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -20,7 +21,8 @@ import org.hibernate.criterion.Restrictions;
  * @author MOISES
  */
 public class ItensEmbarqueSuport implements Serializable, InterfaceCrud{
-    
+    @Inject
+    EmbarqueSuport embarqueSuport;
     private InterfaceDao<ItensEmbarque> Dao() {
         InterfaceDao<ItensEmbarque> dao = new Dao<>(ItensEmbarque.class);
         return dao;
@@ -60,6 +62,17 @@ public class ItensEmbarqueSuport implements Serializable, InterfaceCrud{
                 .add(Restrictions.eq("embarque", embarque));
                 
         return Dao().getEntitiesByDetachetCriteria(criteria);
+    }
+    
+    
+    public List<ItensEmbarque> itensPorEmbarque(Long numEmbarque){
+        
+        Embarque embarque = embarqueSuport.getEmbarqueById(numEmbarque);
+                
+        DetachedCriteria criteria = DetachedCriteria.forClass(ItensEmbarque.class)
+                .add(Restrictions.eq("ite_embarque_id", embarque));
+        List<ItensEmbarque> lista = Dao().getEntitiesByDetachetCriteria(criteria);
+        return lista;
     }
     
 //    public List<ItensEmbarque> getPessoasByPlaca(String valor){

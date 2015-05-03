@@ -23,7 +23,7 @@ public class CadastroTransportadoraBean implements Serializable {
     
     
     private Transportadora transportadora;
-    private TransportadoraSuport suport;
+    private final TransportadoraSuport suport;
 
     public CadastroTransportadoraBean() {
         suport = new TransportadoraSuport();

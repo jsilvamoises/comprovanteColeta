@@ -9,7 +9,9 @@
     </h:head>
     <h:body>
         <f:metadata >
-           
+            <f:event listener="#{relatorioEmbarqueBean.gerar()}" type="preRenderView">
+                <p:ajax disabled="true"/>
+            </f:event>
         </f:metadata>
         <h:form>
             

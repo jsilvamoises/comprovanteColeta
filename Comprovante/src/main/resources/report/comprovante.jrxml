@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprovante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4c67c76-98c9-47f8-9bc0-a701a49581f6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="12"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NUMERO_EMBARQUE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO_MARCA" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Users\\MOISES\\Pictures\\logo.jpg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="NOME_EMPRESA" class="java.lang.String">
+		<defaultValueExpression><![CDATA["JSM - TECNOLOGIA E DESENVOLVIMENTO"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     tbl_itens_embarque.`ite_id` AS tbl_itens_embarque_ite_id,
+     tbl_itens_embarque.`ite_data_inclusao` AS tbl_itens_embarque_ite_data_inclusao,
+     tbl_itens_embarque.`ite_nota_fiscal` AS tbl_itens_embarque_ite_nota_fiscal,
+     tbl_itens_embarque.`ite_quantidade_volume` AS tbl_itens_embarque_ite_quantidade_volume,
+     tbl_itens_embarque.`ite_cliente_id` AS tbl_itens_embarque_ite_cliente_id,
+     tbl_cliente.`cli_id` AS tbl_cliente_cli_id,
+     tbl_cliente.`cli_documente` AS tbl_cliente_cli_documente,
+     tbl_cliente.`cli_nome` AS tbl_cliente_cli_nome,
+     tbl_embarque.`emb_id` AS tbl_embarque_emb_id,
+     tbl_embarque.`emb_nome_motorista` AS tbl_embarque_emb_nome_motorista,
+     tbl_embarque.`emb_numero_lacre` AS tbl_embarque_emb_numero_lacre,
+     tbl_embarque.`emb_observacao` AS tbl_embarque_emb_observacao,
+     tbl_embarque.`emb_placa_veiculo` AS tbl_embarque_emb_placa_veiculo,
+     tbl_embarque.`emb_rg_motorista` AS tbl_embarque_emb_rg_motorista,
+     tbl_embarque.`transportadora` AS tbl_embarque_transportadora,
+     tbl_embarque.`emb_transportadora_id` AS tbl_embarque_emb_transportadora_id,
+     tbl_embarque.`emb_nome_usuario` AS tbl_embarque_emb_nome_usuario
+FROM
+     `tbl_cliente` tbl_cliente INNER JOIN `tbl_itens_embarque` tbl_itens_embarque ON tbl_cliente.`cli_id` = tbl_itens_embarque.`ite_cliente_id`
+     INNER JOIN `tbl_embarque` tbl_embarque ON tbl_itens_embarque.`ite_embarque_id` = tbl_embarque.`emb_id`
+     INNER JOIN `tbl_transportadora` tbl_transportadora ON tbl_embarque.`emb_transportadora_id` = tbl_transportadora.`tra_id`
+where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
+	</queryString>
+	<field name="tbl_itens_embarque_ite_id" class="java.lang.Long"/>
+	<field name="tbl_itens_embarque_ite_data_inclusao" class="java.sql.Timestamp"/>
+	<field name="tbl_itens_embarque_ite_nota_fiscal" class="java.lang.String"/>
+	<field name="tbl_itens_embarque_ite_quantidade_volume" class="java.lang.Double"/>
+	<field name="tbl_itens_embarque_ite_cliente_id" class="java.lang.Long"/>
+	<field name="tbl_cliente_cli_id" class="java.lang.Long"/>
+	<field name="tbl_cliente_cli_documente" class="java.lang.String"/>
+	<field name="tbl_cliente_cli_nome" class="java.lang.String"/>
+	<field name="tbl_embarque_emb_id" class="java.lang.Long"/>
+	<field name="tbl_embarque_emb_nome_motorista" class="java.lang.String"/>
+	<field name="tbl_embarque_emb_numero_lacre" class="java.lang.String"/>
+	<field name="tbl_embarque_emb_observacao" class="java.lang.String"/>
+	<field name="tbl_embarque_emb_placa_veiculo" class="java.lang.String"/>
+	<field name="tbl_embarque_emb_rg_motorista" class="java.lang.String"/>
+	<field name="tbl_embarque_transportadora" class="java.lang.Object"/>
+	<field name="tbl_embarque_emb_transportadora_id" class="java.lang.Long"/>
+	<field name="tbl_embarque_emb_nome_usuario" class="java.lang.String"/>
+	<group name="Cliente">
+		<groupExpression><![CDATA[$F{tbl_cliente_cli_id}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="382" height="20" uuid="a5679ca8-2e0e-4933-a88b-5fbc1209c65b"/>
+					<textFieldExpression><![CDATA["Cliente.: "+$F{tbl_cliente_cli_id}+
+" - "+$F{tbl_cliente_cli_nome}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="455" y="0" width="100" height="20" uuid="24d1884c-eadf-49e6-b897-dfa157fe3076"/>
+					<textFieldExpression><![CDATA[Calendar.getInstance().getTime()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="382" y="0" width="73" height="20" uuid="1e175e0a-155a-41a0-817f-9c6eca6897d2"/>
+					<text><![CDATA[Data Emissão.: ]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" uuid="2e02f891-2c0e-48e8-9025-e04d05affb8c"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image onErrorType="Icon">
+				<reportElement x="0" y="0" width="100" height="79" uuid="999eddb9-baa9-4baa-b113-e322fffa624b"/>
+				<imageExpression><![CDATA[$P{LOGO_MARCA}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="100" y="0" width="455" height="20" uuid="64b52cb3-8ca8-45f1-8571-ad288126bc2c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROVANTE DE COLETA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="31" width="455" height="20" uuid="dc725f1c-f25a-4e21-817a-6e99dc32c728"/>
+				<textFieldExpression><![CDATA[$P{NOME_EMPRESA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="382" y="0" width="173" height="20" uuid="8ce8cb5f-435a-409e-b537-57a55738190d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Embarque Nº - "+$F{tbl_embarque_emb_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" backcolor="#CCCCCC" uuid="f5b75697-8344-4f9d-a72e-c6309c09e4d8"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nota Fiscal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="94" height="20" backcolor="#CCCCCC" uuid="0d4c423b-a1f4-493a-ab92-fb6a22b74692"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Volumes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="194" y="0" width="88" height="20" backcolor="#CCCCCC" uuid="d5a6dd1c-1f3e-4269-b7fe-045fe411a25c"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Data Inclusão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="282" y="0" width="100" height="20" backcolor="#CCCCCC" uuid="3e635bce-786b-4252-bacf-91692dee39db"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Usuário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="382" y="0" width="173" height="20" backcolor="#CCCCCC" uuid="688f206f-f189-43a9-80b6-dd9e565f2599"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Checagem]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="bb5a378f-daa0-40e3-97a4-ee9ae4255f78"/>
+				<textFieldExpression><![CDATA["NF.: "+$F{tbl_itens_embarque_ite_nota_fiscal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="125" y="0" width="69" height="20" uuid="d65db123-a597-4cc6-9f42-07be84695803"/>
+				<textFieldExpression><![CDATA[$F{tbl_itens_embarque_ite_quantidade_volume}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="0" width="88" height="20" uuid="9eb98c37-faab-465a-93d5-987d384fec05"/>
+				<textFieldExpression><![CDATA[$F{tbl_itens_embarque_ite_data_inclusao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="0" width="100" height="20" uuid="cd47bde2-8f38-4225-b3a9-b4e8a290902a"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_emb_nome_usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="382" y="0" width="173" height="20" uuid="46ff2fd7-20b8-4f4e-99df-9b47f63f73e4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[NF. ❏ Vol.: ❏  ___________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="25" height="20" uuid="a40281ab-ca8b-4f66-acbd-845ecb46f607"/>
+				<text><![CDATA[Vol.:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="44" width="555" height="1" uuid="bfe61f11-3709-46a4-98a8-3c65a9a56470"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="64244837-bcd6-4e44-8cb8-e462f4b12c3f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="a2cf7516-c686-440f-a307-7c49a8aaafea"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

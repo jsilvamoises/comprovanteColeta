@@ -12,19 +12,19 @@ import br.com.moises.model.Transportadora;
 import br.com.moises.suport.EmbarqueSuport;
 import br.com.moises.suport.ItensEmbarqueSuport;
 import br.com.moises.suport.TransportadoraSuport;
-
+import br.com.moises.util.config.MConfig;
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,13 +42,15 @@ public class EmbarqueBean implements Serializable {
     private ItensEmbarque item;
     private final EmbarqueSuport embarqueSuport;
     private final ItensEmbarqueSuport itensSuport;
-
+    @Inject
+    private RelatorioEmbarqueBean reb;
     private ItensEmbarque itemSelecionado;
     private Embarque embarqueSelecionado;
 
     private List<Transportadora> transportadoras;
     @Inject
     private HttpServletResponse response;
+    private Long id;
 
     public EmbarqueBean() {
         embarque = new Embarque();
@@ -60,19 +62,26 @@ public class EmbarqueBean implements Serializable {
         transportadoras = new ArrayList<>();
     }
 
-    public void embarcar() throws IOException, SQLException {
+    public void embarcar() {
         embarque.setStatus(StatusEmbarque.EMBARCADO);
         embarque.setDataEmbarque(Calendar.getInstance().getTime());
-        Long id = embarque.getId();
-        embarqueSuport.save(embarque);
-        gerarRelatorio();
-        novoEmbarque();
+        Long idEmbarque = embarque.getId();
+        if (embarqueSuport.save(embarque)) {
+            novoEmbarque();
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Comprovante/relatorio_coleta?relatorio=relatorio_coleta&num="+idEmbarque);
+            } catch (IOException ex) {
+                Logger.getLogger(EmbarqueBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+
+        }
+
     }
 
-    public void gerarRelatorio() throws SQLException {
-        InputStream inputStream = 
-                  getClass().getClassLoader().getResourceAsStream("/report/comprovante.jasper");
-        System.out.println(inputStream);
+    public String gerarRelatorio() {
+
+        return "/embarque?num_embarque=" + id;
 
     }
 
@@ -83,6 +92,7 @@ public class EmbarqueBean implements Serializable {
     public void criarEmbarque() {
         embarque.setStatus(StatusEmbarque.VAZIO);
         embarque.setDataCriacao(Calendar.getInstance().getTime());
+        embarque.setNomeUsuario(MConfig.getIntance().getUsuario());
         embarqueSuport.saveOrUpdate(embarque);
         embarques = embarqueSuport.list();
     }
@@ -96,6 +106,7 @@ public class EmbarqueBean implements Serializable {
         itens = new ArrayList<>();
         embarques = new ArrayList<>();
         item = new ItensEmbarque();
+        transportadoras.clear();
     }
 
     public void cancelarEmbarque() {
@@ -114,15 +125,17 @@ public class EmbarqueBean implements Serializable {
         // Cliente cliente = item.getCliente();
         if (embarque.getStatus() == StatusEmbarque.VAZIO) {
             embarque.setStatus(StatusEmbarque.CARREGANDO);
+            
             embarqueSuport.save(embarque);
         }
+        
         item.setDataInclusao(Calendar.getInstance().getTime());
         item.setEmbarque(embarque);
         itensSuport.saveOrUpdate(item);
        // embarque.getItens().add(item);
         // embarqueSuport.saveOrUpdate(embarque);
 
-      //  embarques = embarqueSuport.list();
+        //  embarques = embarqueSuport.list();
         // embarqueSuport.merge(embarque);
         item = new ItensEmbarque();
         //   item.setCliente(cliente);
@@ -136,6 +149,10 @@ public class EmbarqueBean implements Serializable {
 
     public void salvarItenEditado() {
         // Cliente cliente = item.getCliente();
+        if(!embarque.getNomeUsuario().equals(MConfig.getIntance().getUsuario())){
+             embarque.setNomeUsuario(embarque.getNomeUsuario()+"/"+MConfig.getIntance().getUsuario());
+        }
+       
         itensSuport.merge(item);
         item = new ItensEmbarque();
         itens = itensSuport.itensEmbarquePorEmbarque(embarque);
