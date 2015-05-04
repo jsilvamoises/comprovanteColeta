@@ -23,16 +23,17 @@
                             <p:outputLabel value="Número Embarque" for="numero-embarque" class="label"/>
                             <p:outputLabel value="Data Inicial" for="data-inicial" class="label"/>
                             <p:outputLabel value="Data Final" for="data-final" class="label"/>
+                            
 
                             <p:inputText id="numero-embarque" placeholder="Número do Embarque"/>
                             <p:calendar id="data-inicial" placeholder="Data Inicial"/>
                             <p:calendar id="data-final" placeholder="Data Final"/>
                         </h:panelGrid>
 
-                        <h:panelGrid columns="2" style="width: 140px!important">
+                        <h:panelGrid columns="3" style="width: 140px!important">
                             <p:outputLabel value="Transportadora" for="transportadora" class="label"/>
                             <p:outputLabel value="Status" for="status" class="label"/>
-
+                            <h:inputHidden/>
                             <p:selectOneMenu id="transportadora"  style="width: 450px!important">
                                 <f:selectItem itemLabel="Para pesquisar de uma transportadora expecífica selecione!!"/>
                             </p:selectOneMenu>
@@ -41,6 +42,8 @@
                                 <f:selectItem itemLabel="Selecione!!"/>
                                 <f:selectItems value="#{statusEmbarqueBean.status}" var="status" itemLabel="#{status}" itemValue="#{status}"/>
                             </p:selectOneMenu>
+                            
+                            <p:commandButton value="Pesquisar"/>
 
                         </h:panelGrid>
                     </f:facet>

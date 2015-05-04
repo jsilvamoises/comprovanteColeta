@@ -21,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 import org.hibernate.annotations.ForeignKey;
 
 /**
@@ -70,6 +71,8 @@ public class Embarque implements Serializable {
 
     @Column(name = "emb_observacao")
     private String observacao;
+    @Transient
+    private String codigoBarra;
     
 //    @OneToMany(mappedBy = "embarque")
 //    @Fetch(FetchMode.JOIN)
@@ -203,6 +206,14 @@ public class Embarque implements Serializable {
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+
+    public String getCodigoBarra() {
+        codigoBarra="";
+        for(int i = 0 ; i < 10-id.toString().length();i++){
+            codigoBarra+="0";
+        }
+        return codigoBarra+id;
     }
 
 }

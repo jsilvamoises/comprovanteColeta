@@ -11,6 +11,7 @@
     <ui:define name="conteudo">
         <f:metadata>
             <f:viewParam name="motorista" value="#{cadastroMotoristaBean.motorista}"/>
+            <f:event listener="#{pesquisaTransportadoraBean.pesquisarTodos()}" type="preRenderView"/>
         </f:metadata>
         <div id="form" class="content_medio">
             <h:form>
@@ -18,10 +19,11 @@
                 <p:fieldset class="field-set">
                     <h:panelGrid columns="1"  class="panel-grid">
                         <p:outputLabel value="Transportadora"/>
-                        <p:autoComplete size="50" value="#{cadastroMotoristaBean.motorista.transportadora}" var="transp"
-                                        completeMethod="#{pesquisaTransportadoraBean.pesquisarTransportadoraPorNome}"
-                                        itemLabel="#{transp.nome}" itemValue="#{transp}" forceSelection="true"  scrollHeight="250"
-                                        dropdown="true" emptyMessage="Digite as iniciais da transportadora no campo" placeholder="Digite as iniciais do nome"/>
+                        <p:selectOneMenu value="#{cadastroMotoristaBean.motorista.transportadora}"  style="width: 80%!important" filter="true" effect="explode" >
+                            <f:selectItem itemLabel="Selecione!!!"/>
+                            <f:selectItems value="#{pesquisaTransportadoraBean.transportadoras}" var="t" itemLabel="#{t.nome}" itemValue="#{t}"/>
+                        </p:selectOneMenu>
+                       
                         
                         <p:outputLabel value="Nome do Motorista"/>
                         <p:inputText size="50" value="#{cadastroMotoristaBean.motorista.nome}"/>

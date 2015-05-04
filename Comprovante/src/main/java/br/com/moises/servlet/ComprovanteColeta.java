@@ -6,11 +6,13 @@
 package br.com.moises.servlet;
 
 import br.com.moises.util.connection.ConnMariaDB;
+import com.lowagie.text.pdf.PdfName;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,7 +67,7 @@ public class ComprovanteColeta extends HttpServlet implements Serializable{
         
         HashMap map = new HashMap();
         map.put("NUMERO_EMBARQUE", numeroEmbarque);
-        map.put("LOGO_MARCA", imagesPath+"/logo2.png");
+        map.put("LOGO_MARCA", imagesPath+"/semlogo.png");
         map.put("NOME_EMPRESA", "MINHA EMPRESA COMERCIO E EXPORTAÇÃO");
         try {
             byte[] pdf = JasperRunManager.runReportToPdf(arquivo, map,ConnMariaDB.getInstance().getConnection());
@@ -83,6 +85,8 @@ public class ComprovanteColeta extends HttpServlet implements Serializable{
             out.write(pdf);
         } catch (Exception e) {
         }
+        
+       
     }
 
     

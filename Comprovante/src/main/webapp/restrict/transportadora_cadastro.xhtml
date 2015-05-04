@@ -17,11 +17,11 @@
                 <h1>Cadastro de Transportadoras</h1>
                 <p:fieldset class="field-set">
                     <h:panelGrid columns="1"  class="panel-grid">
-                        <p:outputLabel value="Transportadora"/>
-                        <p:inputText value="#{cadastroTransportadoraBean.transportadora.nome}" size="50"/>
+                        <p:outputLabel value="Transportadora" for="transportadora"/>
+                        <p:inputText id="transportadora" required="true" value="#{cadastroTransportadoraBean.transportadora.nome}" size="50"/>
 
-                        <p:outputLabel value="CNPJ"/>
-                        <p:inputText value="#{cadastroTransportadoraBean.transportadora.cnpj}"/>
+                        <p:outputLabel value="CNPJ" for="cnpj"/>
+                        <p:inputMask id="cnpj" required="true" mask="99.999.999/9999-99" value="#{cadastroTransportadoraBean.transportadora.cnpj}"/>
 
                         <p:outputLabel value="email"/>
                         <p:inputText size="50" value="#{cadastroTransportadoraBean.transportadora.email}"/>
@@ -37,9 +37,9 @@
                             <p:outputLabel value="Telefone"/>
                             <p:outputLabel value="Status"/>
 
-                            <p:inputText value="#{cadastroTransportadoraBean.transportadora.telefone}"/>
-                            <p:selectOneMenu value="#{cadastroTransportadoraBean.transportadora.status}">
-                                <f:selectItem itemLabel="Selecione!!!"/>
+                            <p:inputMask mask="+55(99) 9999-9999" value="#{cadastroTransportadoraBean.transportadora.telefone}"/>
+                            <p:selectOneMenu value="#{cadastroTransportadoraBean.transportadora.status}" style="width: 250px!important">
+                                
                                 <f:selectItems value="#{statusBean.status}" var="status" itemLabel="#{status}" itemValue="#{status}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>

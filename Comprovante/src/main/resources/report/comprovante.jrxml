@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprovante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4c67c76-98c9-47f8-9bc0-a701a49581f6">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="12"/>
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="NUMERO_EMBARQUE" class="java.lang.String">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -35,7 +35,8 @@ FROM
      `tbl_cliente` tbl_cliente INNER JOIN `tbl_itens_embarque` tbl_itens_embarque ON tbl_cliente.`cli_id` = tbl_itens_embarque.`ite_cliente_id`
      INNER JOIN `tbl_embarque` tbl_embarque ON tbl_itens_embarque.`ite_embarque_id` = tbl_embarque.`emb_id`
      INNER JOIN `tbl_transportadora` tbl_transportadora ON tbl_embarque.`emb_transportadora_id` = tbl_transportadora.`tra_id`
-where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
+where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}
+order by tbl_cliente_cli_nome]]>
 	</queryString>
 	<field name="tbl_itens_embarque_ite_id" class="java.lang.Long"/>
 	<field name="tbl_itens_embarque_ite_data_inclusao" class="java.sql.Timestamp"/>
@@ -73,6 +74,9 @@ where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
 				</staticText>
 				<line>
 					<reportElement x="0" y="0" width="555" height="1" uuid="2e02f891-2c0e-48e8-9025-e04d05affb8c"/>
+					<graphicElement>
+						<pen lineStyle="Dotted"/>
+					</graphicElement>
 				</line>
 			</band>
 		</groupHeader>
@@ -95,6 +99,7 @@ where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
 			</staticText>
 			<textField>
 				<reportElement x="100" y="31" width="455" height="20" uuid="dc725f1c-f25a-4e21-817a-6e99dc32c728"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$P{NOME_EMPRESA}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -106,6 +111,12 @@ where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Embarque Nº - "+$F{tbl_embarque_emb_id}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement x="210" y="0" width="172" height="20" uuid="19542815-3cc7-43a3-9a05-ffce4d4495a6"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{tbl_embarque_emb_id}.toString()]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -119,28 +130,28 @@ where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="100" y="0" width="94" height="20" backcolor="#CCCCCC" uuid="0d4c423b-a1f4-493a-ab92-fb6a22b74692"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Volumes]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="194" y="0" width="88" height="20" backcolor="#CCCCCC" uuid="d5a6dd1c-1f3e-4269-b7fe-045fe411a25c"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Data Inclusão]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="282" y="0" width="100" height="20" backcolor="#CCCCCC" uuid="3e635bce-786b-4252-bacf-91692dee39db"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Usuário]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="382" y="0" width="173" height="20" backcolor="#CCCCCC" uuid="688f206f-f189-43a9-80b6-dd9e565f2599"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Checagem]]></text>
@@ -161,7 +172,7 @@ where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
 				<reportElement x="194" y="0" width="88" height="20" uuid="9eb98c37-faab-465a-93d5-987d384fec05"/>
 				<textFieldExpression><![CDATA[$F{tbl_itens_embarque_ite_data_inclusao}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="282" y="0" width="100" height="20" uuid="cd47bde2-8f38-4225-b3a9-b4e8a290902a"/>
 				<textFieldExpression><![CDATA[$F{tbl_embarque_emb_nome_usuario}]]></textFieldExpression>
 			</textField>
@@ -170,7 +181,7 @@ where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[NF. ❏ Vol.: ❏  ___________]]></text>
+				<text><![CDATA[NF. (   ) Vol.: (   )  ___________]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="100" y="0" width="25" height="20" uuid="a40281ab-ca8b-4f66-acbd-845ecb46f607"/>
@@ -179,26 +190,108 @@ where tbl_embarque.`emb_id` = $P{NUMERO_EMBARQUE}]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="44" width="555" height="1" uuid="bfe61f11-3709-46a4-98a8-3c65a9a56470"/>
+				<reportElement x="0" y="30" width="555" height="1" uuid="bfe61f11-3709-46a4-98a8-3c65a9a56470"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
 			</line>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="20" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="424" height="25" uuid="3d55c2b3-5526-468d-9343-8218d20a54db"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="12" y="0" width="397" height="25" uuid="567a3a19-fa81-4d2d-bb5e-cd56a04545f8"/>
+				<textElement>
+					<font fontName="Arial Narrow" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Declaro que todos os documentos aqui descritos estão de acordo com: quantidade de volumes, numeração de nota e destinatário, bem como suas embalagens estão em perfeitas condições.
+]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="436" y="0" width="119" height="25" uuid="db12b270-9f3f-4589-8444-b60cc325e9fd"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
 			<textField>
-				<reportElement x="435" y="0" width="80" height="20" uuid="64244837-bcd6-4e44-8cb8-e462f4b12c3f"/>
+				<reportElement x="436" y="0" width="77" height="20" uuid="64244837-bcd6-4e44-8cb8-e462f4b12c3f"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="515" y="0" width="40" height="20" uuid="a2cf7516-c686-440f-a307-7c49a8aaafea"/>
+				<reportElement x="513" y="0" width="40" height="20" uuid="a2cf7516-c686-440f-a307-7c49a8aaafea"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="123" splitType="Stretch">
+			<rectangle radius="20">
+				<reportElement x="0" y="10" width="264" height="113" uuid="085295c3-91ae-4b05-8b9c-b42a8c59cb28"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="10" width="264" height="20" uuid="998962b7-644b-4850-93f9-55cb2a0a96d6"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dados do Motorista]]></text>
+			</staticText>
+			<rectangle radius="20">
+				<reportElement x="282" y="10" width="273" height="113" uuid="87be049a-7547-4b31-a192-0a10bb9d1f6b"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="282" y="10" width="273" height="20" uuid="55c713aa-2556-4c97-8bea-840f75ca1275"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observações]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="293" y="30" width="250" height="79" uuid="ffda8360-001e-4daa-ae28-d1c59aaf6e45"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_emb_observacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="30" width="264" height="20" uuid="6a213533-ca80-4a02-9f86-7d475d216b4a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_emb_nome_motorista}.length()> 0 ?"Nome.: "+$F{tbl_embarque_emb_nome_motorista}:"Nome.:_____________________________"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="50" width="264" height="20" uuid="a2fd424f-bce5-442b-8bea-2f75c1d58305"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_emb_rg_motorista}.toString().length()>0?"RG.: "+$F{tbl_embarque_emb_rg_motorista}:"RG.:______________________"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="70" width="264" height="20" uuid="a10be08e-79ba-4080-8718-ca0845a2d501"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tbl_embarque_emb_placa_veiculo}.toString().length()>0?"Placa.: "+$F{tbl_embarque_emb_placa_veiculo}:"Placa.: _________-_________"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="108" width="264" height="15" uuid="7350f0c1-dd8e-46f1-ad22-999da10f5d3b"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Assinatura Motorista]]></text>
+			</staticText>
+			<line>
+				<reportElement x="30" y="108" width="204" height="1" uuid="331e41bd-e45f-4628-9d41-134fd376fae9"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="24" splitType="Stretch"/>
 	</summary>
 </jasperReport>

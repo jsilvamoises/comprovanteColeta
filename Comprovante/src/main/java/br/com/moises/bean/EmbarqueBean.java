@@ -63,6 +63,7 @@ public class EmbarqueBean implements Serializable {
     }
 
     public void embarcar() {
+        embarqueSuport.save(embarque);
         embarque.setStatus(StatusEmbarque.EMBARCADO);
         embarque.setDataEmbarque(Calendar.getInstance().getTime());
         Long idEmbarque = embarque.getId();

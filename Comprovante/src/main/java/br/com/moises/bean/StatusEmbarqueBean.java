@@ -5,7 +5,7 @@
  */
 package br.com.moises.bean;
 
-import br.com.moises.enums.Status;
+import br.com.moises.enums.StatusEmbarque;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -17,10 +17,10 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class StatusEmbarqueBean implements Serializable{
-    private Status[] status;
+    private StatusEmbarque[] status;
 
-    public Status[] getStatus() {
-        return Status.values();
+    public StatusEmbarque[] getStatus() {
+        return StatusEmbarque.values();
     }
     
     

@@ -11,74 +11,79 @@
 
 
         <p:fieldset >
-            <h:panelGrid columns="1" style="width: 100%">
-                <p:outputLabel value="Cliente" for="cliente"/>
-
-                <p:selectOneMenu value="#{embarqueBean.item.cliente}" filter="true" rendered="true" editable="false" required="true" id="cliente" >
-                    <f:selectItem itemLabel="Selecione!!!"/>
-                    <f:selectItems value="#{pesquisaClienteBean.clientes}" var="cliente" itemLabel="#{cliente.clienteCnpjNome}" itemValue="#{cliente}" />
-                </p:selectOneMenu>
-
-            </h:panelGrid>
-
-            <h:panelGrid columns="2" style="width: 100%">
-                <p:outputLabel value="Nota Fiscal" for="nota"/>
-                <p:outputLabel value="Qtd. Volumes" for="volume" />
-
-                <p:inputText id="nota" style="width: 100%" value="#{embarqueBean.item.notaFiscal}" required="true"/>
-                <p:inputText id="volume" style="width: 100%" value="#{embarqueBean.item.quantidadeVolume}" required="true"  />
-            </h:panelGrid>
+            <p:panel id="focus">
+                <p:focus context="focus"/>
 
 
+                <h:panelGrid columns="1" style="width: 100%">
+                    <p:outputLabel value="Cliente" for="cliente"/>
 
-            <p:commandButton value="Salvar" style="width: 100%" action="#{embarqueBean.salvarItemDoEmbarque()}" 
-                             update=":form:tbl-embarques :form:tbl-itens :form:direita-embarque"
-                             rendered="#{embarqueBean.item.id>0?false:true}" accesskey="enter"/>
-            <p:commandButton value="Salvar Editado" style="width: 100%" action="#{embarqueBean.salvarItenEditado()}" 
-                             update="@form"
-                             rendered="#{embarqueBean.item.id>0?true:false}" accesskey="enter" />
+                    <p:selectOneMenu value="#{embarqueBean.item.cliente}" filter="true" rendered="true" editable="false" required="true" id="cliente" >
+                        <f:selectItem itemLabel="Selecione!!!"/>
+                        <f:selectItems value="#{pesquisaClienteBean.clientes}" var="cliente" itemLabel="#{cliente.clienteCnpjNome}" itemValue="#{cliente}" />
+                    </p:selectOneMenu>
 
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" style="width: 100%">
+                    <p:outputLabel value="Nota Fiscal" for="nota"/>
+                    <p:outputLabel value="Qtd. Volumes" for="volume" />
+
+                    <p:inputText id="nota" style="width: 100%" value="#{embarqueBean.item.notaFiscal}" required="true"/>
+                    <p:inputText id="volume" style="width: 100%" value="#{embarqueBean.item.quantidadeVolume}" required="true"  />
+                </h:panelGrid>
+
+
+
+                <p:commandButton value="Salvar" style="width: 100%" action="#{embarqueBean.salvarItemDoEmbarque()}" 
+                                 update=":form:tbl-embarques :form:tbl-itens :form:direita-embarque"
+                                 rendered="#{embarqueBean.item.id>0?false:true}" accesskey="enter" process="@this :form:nota :form:volume :form:cliente"/>
+                <p:commandButton value="Salvar Editado" style="width: 100%" action="#{embarqueBean.salvarItenEditado()}" 
+                                 update="@form"
+                                 rendered="#{embarqueBean.item.id>0?true:false}" accesskey="enter" />
+
+            </p:panel>
         </p:fieldset>
         Dados do Motorista
         <p:fieldset>
             <h:panelGrid columns="1" style="width: 100%">
-                <p:outputLabel value="Nome"/>
-                <p:inputText style="width: 100%" value="#{embarqueBean.embarque.nomeMotorista}"/>
+                <p:outputLabel value="Nome" for="nome"/>
+                <p:inputText id="nome" style="width: 100%" value="#{embarqueBean.embarque.nomeMotorista}" required="true"/>
             </h:panelGrid>
 
             <h:panelGrid columns="2" style="width: 100%">
-                <p:outputLabel value="RG"/>
-                <p:outputLabel value="Placa"/>
+                <p:outputLabel value="RG" for="rg"/>
+                <p:outputLabel value="Placa" for="placa"/>
 
-                <p:inputText style="width: 100%" value="#{embarqueBean.embarque.rgMotorista}"/>
-                <p:inputText style="width: 100%" value="#{embarqueBean.embarque.placaVeiculo}"/>
+                <p:inputText id="rg" style="width: 100%" value="#{embarqueBean.embarque.rgMotorista}" required="true"/>
+                <p:inputText id="placa" style="width: 100%" value="#{embarqueBean.embarque.placaVeiculo}" required="true"/>
             </h:panelGrid>
 
             <h:panelGrid columns="1" style="width: 100%">
                 <p:outputLabel value="Lacre"/>
-                <p:inputText style="width: 100%" value="#{embarqueBean.embarque.numeroLacre}"/>
+                <p:inputText id="lacre" style="width: 100%" value="#{embarqueBean.embarque.numeroLacre}"/>
             </h:panelGrid>
-           
+
 
             <h:panelGrid columns="1" style="width: 100%">
                 <p:outputLabel value="Observações"/>
-                <p:inputTextarea style="width: 100%" value="#{embarqueBean.embarque.observacao}" maxlength="255" />
+                <p:inputTextarea id="observacao" style="width: 100%" value="#{embarqueBean.embarque.observacao}" maxlength="255" />
             </h:panelGrid>
-            
+
             <p:commandButton value="Embarcar" style="width: 100%" disabled="#{embarqueBean.itens.size()>0?false:true}" 
-                             action="#{embarqueBean.embarcar()}"   update="@form" process="@this"  >
-              
+                             action="#{embarqueBean.embarcar()}"   update="@form" process="@this :form:observacao :form:lacre :form:rg :form:placa :form:nome"  >
+
             </p:commandButton>
         </p:fieldset>
         <!--COMANDOS-->
-<!--        Ação
-        <p:fieldset>
-
-
-            <p:commandButton value="Imprimir Embarque" style="width: 100%"/>
-
-
-        </p:fieldset>-->
+        <!--        Ação
+                <p:fieldset>
+        
+        
+                    <p:commandButton value="Imprimir Embarque" style="width: 100%"/>
+        
+        
+                </p:fieldset>-->
 
 
     </p:fieldset>
